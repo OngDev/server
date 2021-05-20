@@ -2,7 +2,6 @@ import { TMiddleware } from "monk"
 import log from "@/logger"
 
 export const logger: TMiddleware = context => next => (args, method) => {
-    log.info(method, args)
     return next(args, method).then((res) => {
         log.info(method + ' result', res)
         return res

@@ -158,7 +158,7 @@ dist/
 # Temporary folders
 tmp/
 temp/
-
+build
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db

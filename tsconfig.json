@@ -1,18 +1,19 @@
 {
     "compilerOptions": {
-      "target": "ES2020",
-      "module": "commonjs",
-      "rootDir": "./",
       "outDir": "./build",
       "esModuleInterop": true,
-      "strict": true,
-      "sourceMap": true,
       "baseUrl": ".",
       "paths": {
-        "@/*": ["./src/*"],
-        "@modules/*": ["./src/modules/*"],
-        "@routers/*": ["./src/routers/*"],
-        "@middlewares/*": ["./src/middlewares/*"]
-      }
-    }
+        "@/*": ["src/*"],
+        "@modules/*": ["src/modules/*"],
+        "@routers/*": ["src/routers/*"],
+        "@middlewares/*": ["src/middlewares/*"]
+      },
+    },
+    "exclude": [
+      "node_modules"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
   }

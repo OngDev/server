@@ -4,7 +4,7 @@ import { messageModel, authorModel } from "./model"
 import { YoutubeConfig } from '@/env';
 import io from '@/server';
 import { AuthorDetails, MessageDetails, MessageType, MessageTypeEnum, YoutubeLiveMessageListResponse, YoutubeLiveMessageType, YoutubeMessageFetchPagination } from './types';
-import { getCurrentLivechatId } from './helpers.js';
+import { getCurrentLivechatId } from './helpers';
 
 const { API_KEY, MESSAGE_API_URL } = YoutubeConfig;
 let isFetchingMessages = false;

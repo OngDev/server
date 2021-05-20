@@ -5,13 +5,7 @@ import cors from 'cors';
 import { createServer } from "http";
 import { Server } from "socket.io";
 import v1ApiRouter from "./routers/v1ApiRouters"
-//import 'module-alias/register';
-  // "_moduleAliases": {
-  //   "@": "build",
-  //   "@modules": "build/modules*"
-  // },
-
-
+import 'module-alias/register';
 
 import { PORT } from './env';
 
