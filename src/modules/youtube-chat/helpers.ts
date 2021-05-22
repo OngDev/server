@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { YoutubeConfig } from '@/env';
-import { YouTubeSearchResponse,YouTubeVideoListResponse } from "./types";
+import { YouTubeSearchResponse,YoutubeSearchResponseItem,YouTubeVideoListResponse } from "./types";
 
 const { API_KEY, YOUTUBE_CHANNEL_ID, SEARCH_API_URL, VIDEO_API_URL } = YoutubeConfig;
 
@@ -26,7 +26,7 @@ async function searchChannelForLiveVideoIds(channelId: string): Promise<string[]
         key: API_KEY,
     }});
     const respData = resp.data as YouTubeSearchResponse;
-    return respData.items.map((i: any) => i.id.videoId);
+    return respData.items.map((item: YoutubeSearchResponseItem) => item.id.videoId);
   }
 
   async function getLiveChatIdFromVideoId(id: string) {

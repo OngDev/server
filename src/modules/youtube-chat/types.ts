@@ -17,6 +17,15 @@ export interface YouTubeSearchResponse {
   }[];
 }
 
+export interface YoutubeSearchResponseItem {
+  kind: 'youtube#searchResult';
+  etag: string;
+  id: {
+    kind: 'youtube#video';
+    videoId: string;
+  }
+}
+
 export interface YouTubeVideoListResponse {
   kind: 'youtube#videoListResponse';
   etag: string;
@@ -78,7 +87,10 @@ export interface YoutubeLiveMessageListResponse {
   nextPageToken: string;
   pollingIntervalMillis: number;
   offlineAt: string;
-  pageInfo: any;
+  pageInfo: {
+    totalResults: number,
+    resultsPerPage: number
+  };
   items: YoutubeLiveMessageType[];
 }
 
