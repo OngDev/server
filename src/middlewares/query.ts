@@ -3,7 +3,12 @@ import log from "@/logger"
 
 export const logger: TMiddleware = context => next => (args, method) => {
     return next(args, method).then((res) => {
-        log.info(method + ' result', res)
+        if (method === "find") {
+            log.info(`Found ${res.length} elements`)
+        } else {
+            log.info(method + ' result', res)
+        }
+        
         return res
     })
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import log from "@/logger"
-import { messageModel, authorModel } from "./model"
+import messageModel from "./models/messages"
+import authorModel from "./models/authors"
 import { YoutubeConfig } from '@/env';
 import io from '@/server';
 import { AuthorDetails, MessageDetails, MessageType, MessageTypeEnum, YoutubeLiveMessageListResponse, YoutubeLiveMessageType, YoutubeMessageFetchPagination } from './types';
@@ -140,11 +141,16 @@ async function processMessages (items: YoutubeLiveMessageType[]): Promise<void> 
 
 export async function getMessages(type: MessageType | string): Promise<MessageDetails[] | []> {
     try {
-        return await messageModel.find({
+        const messages = await messageModel.find({
             messageType: type,
-            livechatId: pagingInfo.liveChatId,
+            liveChatId: pagingInfo.liveChatId,
             isResolved: false
-        })
+        }, {
+            sort: {
+                publishedAt: -1
+            }
+        });
+        return messages;
     } catch (error) {
         log.error(error.message);
         return [];
@@ -169,5 +175,4 @@ export async function archiveMessage(messageId: string): Promise<boolean> {
         log.error(error.message);
         return false;
     }
-    
 }

@@ -11,7 +11,11 @@ import { PORT } from './env';
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*'
+  }
+});
 
 app.use(helmet());
 app.use(morgan('tiny'))
@@ -24,7 +28,7 @@ app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 app.use('/api/v1', v1ApiRouter)
 
 httpServer.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+  console.log(`⚡️[server]: Server is running at ${PORT}`);
 });
 
 export default io;

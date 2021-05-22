@@ -6,10 +6,10 @@ const youtubeRouter = Router()
 
 youtubeRouter.get('/messages', async (req: Request, res: Response) => {
     const {type} = req.query;
-    res.send(await getMessages(type?.toString() || MessageTypeEnum.TEXT));
+    res.status(200).send(await getMessages(type?.toString() || MessageTypeEnum.TEXT));
 });
 youtubeRouter.get('/authors', async (req: Request, res: Response) => {
-    res.send(getAuthors());
+    res.send(await getAuthors());
 });
 youtubeRouter.get('/init', async (req: Request, res: Response) => {
     res.send(await initialize());
