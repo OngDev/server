@@ -12,25 +12,23 @@ export function getYoutubeConfig(): YoutubeConfigType {
     const API_KEY = getEnv('YOUTUBE_API_KEY');
     const YOUTUBE_CHANNEL_ID = getEnv('YOUTUBE_CHANNEL_ID')
     const MESSAGE_API_URL = getEnv('MESSAGE_API_URL')
-    const SEARCH_API_URL = getEnv('SEARCH_API_URL')
-    const VIDEO_API_URL = getEnv('VIDEO_API_URL')
+    const YOUTUBE_API_URL = getEnv('YOUTUBE_API_URL')
 
-    if(!API_KEY || !YOUTUBE_CHANNEL_ID || !MESSAGE_API_URL || !SEARCH_API_URL || !VIDEO_API_URL) {
+    if(!API_KEY || !YOUTUBE_CHANNEL_ID || !MESSAGE_API_URL || !YOUTUBE_API_URL) {
         throw new Error(`Some of youtube env var are missing, please check \n
         ApiKey: ${API_KEY}\n
         ChannelId: ${YOUTUBE_CHANNEL_ID}\n
         MessageApiUrl: ${MESSAGE_API_URL}\n
-        SearchApiUrl: ${SEARCH_API_URL}\n
-        VideoApiUrl: ${VIDEO_API_URL}\n
-        `);
+        YoutubeApiUrl: ${YOUTUBE_API_URL}`);
     }
 
     return {
         API_KEY,
         YOUTUBE_CHANNEL_ID,
         MESSAGE_API_URL,
-        SEARCH_API_URL,
-        VIDEO_API_URL
+        SEARCH_API_URL: `${YOUTUBE_API_URL}/search`,
+        VIDEO_API_URL: `${YOUTUBE_API_URL}/videos`,
+        CHANNEL_API_URL: `${YOUTUBE_API_URL}/channels`
     }
 }
 
@@ -42,6 +40,16 @@ export function getMongoUrl(): string {
     return MONGO_DB_URL;
 }
 
+export function getGithubUrl(): string {
+    const GITHUB_API_URL = getEnv('GITHUB_API_URL');
+    if (!GITHUB_API_URL) {
+        throw new Error(`Github api url is undefined.`);
+    }
+    return GITHUB_API_URL;
+}
+
 export const MongoDbUrl = getMongoUrl();
 
 export const YoutubeConfig = getYoutubeConfig();
+
+export const GITHUB_API_URL = getGithubUrl();

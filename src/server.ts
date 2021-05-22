@@ -6,8 +6,20 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import v1ApiRouter from "./routers/v1ApiRouters"
 import 'module-alias/register';
+import cron from 'cron';
 
 import { PORT } from './env';
+import log from './logger';
+import { fetchGithubStats, fetchYoutubeStats } from './modules/dashboard/service';
+
+const { CronJob } = cron;
+const job = new CronJob('* * * * *', async () => {
+  log.info('Fetching all stats');
+  await fetchYoutubeStats();
+  await fetchGithubStats();
+});
+
+job.start();
 
 const app = express();
 const httpServer = createServer(app);

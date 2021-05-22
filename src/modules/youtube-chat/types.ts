@@ -125,6 +125,7 @@ export interface YoutubeConfigType {
   MESSAGE_API_URL: string;
   SEARCH_API_URL: string;
   VIDEO_API_URL: string;
+  CHANNEL_API_URL: string;
 }
 
 export interface YoutubeMessageFetchPagination {
