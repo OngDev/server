@@ -78,7 +78,7 @@ export async function fetchGithubStats(): Promise<void> {
 
 export async function getYoutubeStats(): Promise<YoutubeStats> {
   try {
-    const today = moment();
+    const today = moment().toDate();
     const stats = await youtubeStatsModel.find(
       {},
       {
@@ -105,7 +105,7 @@ export async function getYoutubeStats(): Promise<YoutubeStats> {
 
 export async function getGithubStats(): Promise<GithubStats> {
   try {
-    const today = moment();
+    const today = moment().toDate();
     const stats = await githubStatsModel.find(
       {},
       {
