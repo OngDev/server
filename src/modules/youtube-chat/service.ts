@@ -49,7 +49,7 @@ export async function fetchMessages(pageToken = ""): Promise<void> {
         log.error("Livechat Id is empty")
         return;
     }
-    log.info({ pageToken });
+    log.info("Fetch more messages");
     isFetchingMessages = true;
     let ENDPOINT =
         `${MESSAGE_API_URL}?liveChatId=${liveChatId}&part=snippet,authorDetails&key=${API_KEY}&maxResults=200`;
@@ -78,7 +78,7 @@ export async function fetchMessages(pageToken = ""): Promise<void> {
 
 
     setTimeout(async () => {
-        log.info({ pageToken, pollingIntervalMillis: pagingInfo.pollingIntervalMillis })
+        log.info(`Will fetch more after ${pagingInfo.pollingIntervalMillis}ms`)
         await fetchMessages(pagingInfo.nextPageToken)
     }, pagingInfo.pollingIntervalMillis);
 }
@@ -115,6 +115,10 @@ async function processMessages (items: YoutubeLiveMessageType[]): Promise<void> 
     
                 await authorModel.insert(author);
                 io.emit("New author", author);
+            }
+            const existedMessage: MessageDetails = await messageModel.findOne({messageId: id});
+            if(existedMessage) {
+                continue;
             }
             let messageType = MessageTypeEnum.TEXT;
             if (displayMessage.includes("!" + MessageTypeEnum.HI)) {
@@ -169,7 +173,9 @@ export async function getAuthors(): Promise<AuthorDetails[]> {
 
 export async function archiveMessage(messageId: string): Promise<boolean> {
     try {
-        await messageModel.findOneAndUpdate({messageId},{isResolved: true})
+        console.log(messageId)
+        await messageModel.findOneAndUpdate({messageId},{
+            $set: {isResolved: true}})
         return true;
     } catch (error) {
         log.error(error.message);
